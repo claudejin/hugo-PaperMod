@@ -44,10 +44,15 @@
   {{- $isHidden := (.Site.Params.cover.hidden | default .Site.Params.cover.hiddenInList) }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
   <header class="entry-header">
-    <h2>
+    <h2 style="display: inline;">
       {{- .Title }}
       {{- if .Draft }}<div class="entry-isdraft"><sup>&nbsp;&nbsp;[draft]</sup></div>{{ end -}}
     </h2>
+    {{- if .Params.description }}
+    <span class="entry-content" style="display: inline; margin-left: 8px;">
+      {{ .Params.description }}
+    </span>
+    {{- end }}
   </header>
   {{- if (ne (.Param "hideSummary") true) }}
   <section class="entry-content">
