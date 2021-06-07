@@ -95,6 +95,19 @@
 {{- end }}
 {{- end }}
 
+{{ if (or (and (ne .Params.disableMermaid nil) (not .Params.disableMermaid)) (not .Site.Params.disableMermaid)) }}
+    {{ if .Params.customMermaidURL }}
+        <script src="{{ .Params.customMermaidURL }}"></script>
+    {{ else if .Site.Params.customMermaidURL }}
+        <script src="{{ .Site.Params.customMermaidURL }}"></script>
+    {{ else }}
+        <script src="{{"js/mermaid.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
+    {{ end }}
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+{{ end }}
+
 {{- /* Favicons */}}
 <link rel="icon" href="{{ .Site.Params.assets.favicon | default "favicon.ico" | absURL }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ .Site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
